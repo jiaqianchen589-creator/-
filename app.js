@@ -56,3 +56,25 @@ document.querySelectorAll('.copy-email').forEach((button) => {
     setTimeout(() => { button.textContent = '复制邮箱'; }, 2500);
   });
 });
+
+const roleViews = {
+  strategy: ['从经营波动到可执行动作', '漏斗拆解 · 周会复盘 · 付费端断点定位', '#case', '看业务诊断案例 →'],
+  ai: ['把重复分析做成团队工具', '2 天 → 1 小时 · 3,000+ 对话 AI 初筛', '#work', '看已交付工具 →'],
+  business: ['用研究能力看懂经营结构', '英文商业研究 · 财报拆解 · SPSS / SQL', '#research', '看商业研究原稿 →'],
+};
+document.querySelectorAll('.role-choice').forEach((button) => {
+  button.addEventListener('click', () => {
+    const view = roleViews[button.dataset.role];
+    if (!view) return;
+    document.querySelectorAll('.role-choice').forEach((item) => {
+      const selected = item === button;
+      item.classList.toggle('active', selected);
+      item.setAttribute('aria-pressed', String(selected));
+    });
+    document.querySelector('#role-result-title').textContent = view[0];
+    document.querySelector('#role-result-copy').textContent = view[1];
+    const link = document.querySelector('#role-result-link');
+    link.href = view[2];
+    link.textContent = view[3];
+  });
+});
